@@ -158,9 +158,14 @@ PYTHONPATH=src python -m odte_lab qqq0dte replay \
 
 Every run writes a small set of standard files.
 
+- `quick_summary.txt`
+  - the easiest human-readable summary
+  - start here if you want the simplest result view
+- `quick_summary.json`
+  - the same quick summary in machine-readable form
 - `summary.csv`
   - the high-level result table
-  - start here if you only want the main numbers
+  - use this when you want the full metric table
 - `trades.csv`
   - trade-by-trade results after portfolio sizing
   - use this when you want to inspect wins, losses, and exits

@@ -7,7 +7,7 @@ import pandas as pd
 
 from odte_lab.config import load_config
 from odte_lab.engine import inspect_provider, replay_trades, run_backtest
-from odte_lab.reports import ensure_output_dir, print_run_summary, write_csv, write_json
+from odte_lab.reports import ensure_output_dir, print_run_summary, write_csv, write_json, write_quick_summary
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -50,6 +50,7 @@ def handle_replay(args: argparse.Namespace) -> int:
         trades_count=len(result.trades),
         summary_rows=len(result.summary),
         coverage_tier=coverage["quality_tier"],
+        summary=result.summary,
     )
     return 0
 
@@ -75,12 +76,14 @@ def handle_backtest(args: argparse.Namespace) -> int:
             trades_count=len(result.trades),
             summary_rows=len(result.summary),
             coverage_tier=coverage["quality_tier"],
+            summary=result.summary,
         )
         return 0
     write_json(cfg.to_dict(), output_dir / "run_config.json")
     write_json(coverage, output_dir / "coverage.json")
     write_csv(pd.DataFrame(), output_dir / "trades.csv")
     write_csv(pd.DataFrame([{"status": "dry_run"}]), output_dir / "summary.csv")
+    write_quick_summary(pd.DataFrame([{"portfolio_mode": cfg.portfolio.mode, "trade_count": 0}]), coverage["quality_tier"], output_dir)
     print_run_summary(output_dir=output_dir, trades_count=0, summary_rows=1, coverage_tier=coverage["quality_tier"])
     return 0
 

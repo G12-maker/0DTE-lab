@@ -9,7 +9,7 @@ from odte_lab.domain import ExecutionConfig, QQQ0DTEConfig, SelectionConfig, Sig
 from odte_lab.portfolio import ReplayResult, replay_single_leg_trades
 from odte_lab.pricing import bs_delta, implied_vol
 from odte_lab.providers import ProviderFactory
-from odte_lab.reports import ensure_output_dir, write_csv, write_json
+from odte_lab.reports import ensure_output_dir, write_csv, write_json, write_quick_summary
 
 
 def inspect_provider(cfg: QQQ0DTEConfig) -> dict:
@@ -344,6 +344,7 @@ def run_backtest(cfg: QQQ0DTEConfig) -> tuple[ReplayResult, dict, Path]:
     write_csv(replay.summary, output_dir / "summary.csv")
     write_json(cfg.to_dict(), output_dir / "run_config.json")
     write_json(coverage, output_dir / "coverage.json")
+    write_quick_summary(replay.summary, coverage["quality_tier"], output_dir)
     return replay, coverage, output_dir
 
 
@@ -356,4 +357,5 @@ def replay_trades(trades_path: str | Path, cfg: QQQ0DTEConfig) -> tuple[ReplayRe
     write_csv(result.summary, output_dir / "summary.csv")
     write_json(cfg.to_dict(), output_dir / "run_config.json")
     write_json(coverage, output_dir / "coverage.json")
+    write_quick_summary(result.summary, coverage["quality_tier"], output_dir)
     return result, coverage, output_dir
