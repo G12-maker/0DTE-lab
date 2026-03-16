@@ -1,8 +1,25 @@
-# 0dte-lab
+# 0DTE-lab
 
-`0dte-lab` is a research tool for testing `QQQ 0DTE` option ideas.
+`0DTE-lab` is a research tool for testing `QQQ 0DTE` option ideas.
 
-It is built for people who trade and want a repeatable backtest workflow, even if they are not professional engineers. The first goal is simple: copy a command, run a demo, and understand where the result files are.
+It is built for traders who want a repeatable backtest workflow, with a simple no-Theta demo path and a higher-fidelity Theta research path. The first goal is simple: copy a command, run a demo, and understand where the result files are.
+
+## Why This Project
+
+- Focused on `QQQ 0DTE` instead of general options tooling
+- Supports both a simple demo mode and a higher-fidelity Theta mode
+- Produces standardized result files for repeatable research
+
+## Best First Command
+
+If you only try one thing, start here:
+
+```bash
+cd 0dte-lab
+PYTHONPATH=src python -m odte_lab qqq0dte backtest \
+  --config examples/qqq0dte/demo_no_theta.yaml \
+  --output-dir /tmp/odte-lab-demo
+```
 
 ## What You Can Do With It
 
@@ -36,6 +53,8 @@ Choose the path that matches you.
 ### I do not have Theta
 
 Start with the bundled Massive sample. This is the easiest way to confirm the project works.
+
+If you only try one thing, start with this command:
 
 ```bash
 cd 0dte-lab
@@ -267,6 +286,11 @@ No, but you do need to be comfortable copying commands into a terminal.
 ### I do not have Theta. Can I still use this?
 
 Yes. Start with `demo_no_theta.yaml`.
+
+### Which mode should I trust more?
+
+`theta_realistic` is the higher-fidelity research mode.
+`massive_simplified` is mainly for onboarding and smoke tests.
 
 ### Which file should I read first after a run?
 
