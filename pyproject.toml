@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "0dte-lab"
+version = "0.1.0"
+description = "Research framework for QQQ 0DTE backtesting and execution analysis."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pandas",
+  "PyYAML",
+]
+authors = [{ name = "0dte-lab Contributors" }]
+keywords = ["options", "qqq", "0dte", "backtesting", "research"]
+
+[project.scripts]
+odte-lab = "odte_lab.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,57 @@
+# Main editable Theta example.
+# Use this as a starting point for your own QQQ 0DTE research configs.
+
+backtest:
+  start_date: "2024-03-08"
+  end_date: "2026-03-06"
+
+data:
+  provider: theta
+  mode: realistic
+  underlying_cache: ../../../outputs/cache/QQQ_2024-03-08_2026-03-06_1m.csv
+  quote_dir: ../../../data/theta/QQQ/0dte_quote_1m_093000_120000
+  tradequote_dir: ../../../data/theta/QQQ/0dte_trade_quote_tick_093000_120000
+  first_order_dir: ../../../data/theta/QQQ/0dte_first_order_1m_093000_120000
+  open_interest_dir: ../../../data/theta/QQQ/0dte_open_interest_eod_093000_120000
+  timezone: America/New_York
+
+signal:
+  kind: opening_momentum
+  trigger_pct: 0.0015
+  entry_start: "10:05"
+  entry_end: "10:15"
+  step_minutes: 1
+
+selection:
+  kind: exact_delta
+  target_delta: 0.50
+  min_open_interest: 0
+  max_entry_spread_pct_mid: 0.0
+  max_entry_spread_abs: 0.0
+
+execution:
+  mode: realistic
+  entry_price_mode: ask
+  exit_price_mode: bid
+  entry_slippage: 0.0
+  exit_slippage: 0.0
+  force_exit: "11:30"
+  take_profit_pct: 0.25
+  stop_loss_pct: 0.45
+  hard_stop_loss_pct: 0.85
+  trail_activate_pct: 0.35
+  trail_drawdown_pct: 0.05
+
+portfolio:
+  mode: dynamic_abc
+  initial_equity: 6000
+  floor_equity: 6000
+  ratio_a: 0.15
+  ratio_b: 0.20
+  ratio_c: 0.65
+  call_size_mult: 0.85
+  withdraw_ratio: 0.40
+  contract_multiplier: 100
+
+outputs:
+  output_dir: ../../../outputs/odte_lab/opening_momentum_base

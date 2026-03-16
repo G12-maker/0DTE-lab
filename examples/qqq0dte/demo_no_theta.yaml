@@ -1,0 +1,52 @@
+# Easiest first run.
+# Use this if you do not have Theta and just want one working demo.
+
+backtest:
+  start_date: "2024-03-08"
+  end_date: "2024-03-08"
+
+data:
+  provider: massive_file
+  mode: simplified
+  underlying_dir: ../../sample_data/massive/underlying_1m
+  options_dir: ../../sample_data/massive/options_1m
+  contracts_dir: ../../sample_data/massive/contracts
+  timezone: America/New_York
+
+signal:
+  kind: opening_momentum
+  trigger_pct: 0.0015
+  entry_start: "10:05"
+  entry_end: "10:15"
+  step_minutes: 1
+
+selection:
+  kind: exact_delta
+  target_delta: 0.50
+  min_open_interest: 0
+  max_entry_spread_pct_mid: 0.0
+  max_entry_spread_abs: 0.0
+
+execution:
+  mode: simplified
+  entry_price_mode: ask
+  exit_price_mode: mid
+  entry_slippage: 0.0
+  exit_slippage: 0.0
+  force_exit: "11:30"
+  take_profit_pct: 0.25
+  stop_loss_pct: 0.45
+  hard_stop_loss_pct: 0.85
+  trail_activate_pct: 0.35
+  trail_drawdown_pct: 0.05
+
+portfolio:
+  mode: fixed_fractional
+  initial_equity: 10000
+  floor_equity: 10000
+  fixed_fraction: 0.15
+  contract_multiplier: 100
+
+outputs:
+  output_dir: ../../../outputs/odte_lab/demo_no_theta
+
